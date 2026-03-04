@@ -12,7 +12,7 @@ export default function Navbar({ onOpenAuth }) {
       className="w-full px-6 md:px-12 py-4 bg-transparent fixed top-0 z-30"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="text-lg font-semibold tracking-wide">NAME COMPANY</div>
+        <div className="text-lg font-semibold tracking-wide">termez</div>
 
         <div className="hidden md:flex items-center space-x-6">
           <a href="#home" className="text-gray-700 hover:text-gray-900">Home</a>
