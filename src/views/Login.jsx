@@ -47,7 +47,7 @@ export default function Login() {
         } catch (e) {
           console.warn('failed to persist session', e);
         }
-        navigate('/admin', { replace: true, state: { user: res.data } });
+        navigate('/dashboard', { replace: true, state: { user: res.data } });
       } else {
         setPopup(res && res.message ? res.message : 'Login gagal');
       }
