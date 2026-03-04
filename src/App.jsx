@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import authService from './services/authService';
 import Login from './views/Login';
 import AdminPanel from './views/AdminPanel';
 import AdminDashboard from './views/AdminDashboard';
@@ -9,15 +10,26 @@ import ComponentsPage from './views/ComponentsPage';
 import UtilitiesPage from './views/UtilitiesPage';
 import './App.css';
 
-// wrapper that checks for an existing token in sessionStorage
+// wrapper that checks for an existing token in sessionStorage and validates expiration
 function RequireAuth({ children }) {
   let token = null;
   try {
     token = sessionStorage.getItem('token');
-  } catch {}
-  if (!token) {
+  } catch (e) {
+    // ignore errors reading sessionStorage (e.g., disabled storage)
+    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV) console.debug(e);
+  }
+  
+  // Check if token exists and is not expired
+  if (!token || authService.isTokenExpired(token)) {
+    // Clear session on expiration
+    try {
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
+    } catch {}
     return <Navigate to="/" replace />;
   }
+  
   return children;
 }
 

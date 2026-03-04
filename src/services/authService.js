@@ -31,6 +31,17 @@ export async function login({ username, password }) {
 }
 
 // send the token to server logout endpoint and return response
+export async function register({ nik, full_name, username, password }) {
+  try {
+    const resp = await client.post('/employee_logins/register', { nik, full_name, username, password });
+    return resp.data;
+  } catch (err) {
+    if (err.response && err.response.data) return err.response.data;
+    throw err;
+  }
+}
+
+// send the token to server logout endpoint and return response
 export async function logout(token) {
   try {
     // use a fresh client since token may not be in headers
@@ -42,4 +53,33 @@ export async function logout(token) {
   }
 }
 
-export default { login, logout };
+// Decode JWT token to check expiration (client-side validation)
+export function isTokenExpired(token) {
+  if (!token) return true;
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) return true;
+    const decoded = JSON.parse(atob(parts[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return decoded.exp <= now;
+  } catch {
+    return true;
+  }
+}
+
+// Get stored token and user data
+export function getAuthData() {
+  try {
+    const token = sessionStorage.getItem('token');
+    const user = sessionStorage.getItem('user');
+    return {
+      token: token || null,
+      user: user ? JSON.parse(user) : null,
+      isExpired: isTokenExpired(token),
+    };
+  } catch {
+    return { token: null, user: null, isExpired: true };
+  }
+}
+
+export default { login, register, logout, isTokenExpired, getAuthData };
