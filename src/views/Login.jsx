@@ -6,6 +6,9 @@ import Hero from '../components/Hero';
 import Features from '../components/Features';
 import Footer from '../components/Footer';
 import AuthModal from '../components/AuthModal';
+import ProfileSection from '../components/ProfileSection';
+import AboutSection from '../components/AboutSection';
+import ContactSection from '../components/ContactSection';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -37,6 +40,9 @@ export default function Login() {
       <main className="pt-24">
         <Hero onOpenAuth={openAuth} />
         <Features />
+        <ProfileSection />
+        <AboutSection />
+        <ContactSection />
       </main>
 
       <Footer />

@@ -2,10 +2,17 @@ import React from 'react';
 
 export default function Features() {
   const items = [
-    { title: 'Fast Performance', body: 'Optimized for speed with minimal payload and smooth animations.' },
-    { title: 'Responsive', body: 'Looks great on mobile, tablet, and desktop with fluid layouts.' },
-    { title: 'Modern UI', body: 'Clean, minimal, and elegant design using whitespace and typography.' },
-  ];
+    { title: 'Core HR (Data & Administrasi)', body: 'Optimized for speed with minimal payload and smooth animations.' },
+    { title: 'Attendance & Time Management', body: 'Looks great on mobile, tablet, and desktop with fluid layouts.' },
+    { title: 'Payroll & Compensation', body: 'Clean, minimal, and elegant design using whitespace and typography.' },
+    { title: 'Performance Management', body: 'Clean, minimal, and elegant design using whitespace and typography.' },
+    { title: 'Recruitment & Talent Management', body: 'Clean, minimal, and elegant design using whitespace and typography.' },
+    { title: 'Learning & Development (LMS)', body: 'Clean, minimal, and elegant design using whitespace and typography.' },
+    { title: 'Employee Engagement', body: 'Clean, minimal, and elegant design using whitespace and typography.' },
+    { title: 'Compliance & Governance', body: 'Clean, minimal, and elegant design using whitespace and typography.' },
+    { title: 'Advanced / Smart Features (AI-Based)', body: 'Clean, minimal, and elegant design using whitespace and typography.' },
+
+];
 
   return (
     <section id="features" className="py-20">
