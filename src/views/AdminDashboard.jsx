@@ -1,5 +1,4 @@
 import React from 'react';
-import AdminNavbar from '../components/AdminNavbar';
 import MetricCard from '../components/MetricCard';
 import AnalyticsChart from '../components/AnalyticsChart';
 import ChannelChart from '../components/ChannelChart';
@@ -8,9 +7,8 @@ import { metricSmallSeries, mainChart, channels, pages } from '../data/analytics
 
 export default function AdminDashboard() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <AdminNavbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
           <div>
@@ -77,7 +75,7 @@ export default function AdminDashboard() {
             <ChannelChart data={channels} />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

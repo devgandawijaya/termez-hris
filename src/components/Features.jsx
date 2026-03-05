@@ -22,6 +22,20 @@ const containerVariants = {
   },
 };
 
+// top companies for the cooperation carousel (with icons)
+const companies = [
+  { name: 'Apple', icon: '🍎' },
+  { name: 'Google', icon: '🔍' },
+  { name: 'Microsoft', icon: '🪟' },
+  { name: 'Amazon', icon: '📦' },
+  { name: 'Meta', icon: '📘' },
+  { name: 'Tesla', icon: '🚗' },
+  { name: 'Samsung', icon: '📱' },
+  { name: 'IBM', icon: '💾' },
+  { name: 'Intel', icon: '🧠' },
+  { name: 'Oracle', icon: '🛡️' },
+];
+
 const cardVariants = {
   hidden: { y: 30, opacity: 0 },
   show: { y: 0, opacity: 1, transition: { duration: 0.6 } },
@@ -29,7 +43,23 @@ const cardVariants = {
 
 export default function Features() {
   return (
-    <section className="py-20 bg-gradient-to-b from-white via-cyan-50/30 to-white">
+    <>
+      {/* cooperation customers carousel */}
+      <section className="py-12 bg-gray-100">
+        <h3 className="text-center text-lg font-semibold mb-6">Our Trusted Partners</h3>
+        <div className="overflow-x-auto">
+          <div className="flex space-x-10 py-4">
+            {companies.map((c, index) => (
+              <div key={index} className="flex items-center justify-center w-48 h-20 bg-white rounded-lg shadow p-2 space-x-2">
+                <span className="text-2xl">{c.icon}</span>
+                <span className="text-sm font-medium text-gray-700">{c.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gradient-to-b from-white via-cyan-50/30 to-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-center mb-16">
           <h2 className="text-4xl md:text-4xl font-bold text-gray-900 mb-4">Powerful Features</h2>
@@ -58,5 +88,6 @@ export default function Features() {
         </motion.div>
       </div>
     </section>
+    </>
   );
 }

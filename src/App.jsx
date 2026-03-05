@@ -5,9 +5,11 @@ import Login from './views/Login';
 import AdminPanel from './views/AdminPanel';
 import AdminDashboard from './views/AdminDashboard';
 import AppsPage from './views/AppsPage';
-import PagesPage from './views/PagesPage';
 import ComponentsPage from './views/ComponentsPage';
 import UtilitiesPage from './views/UtilitiesPage';
+import GenericPage from './views/GenericPage';
+import AdminFeaturePage from './views/AdminFeaturePage';
+import AdminLayout from './components/AdminLayout';
 import './App.css';
 
 // wrapper that checks for an existing token in sessionStorage and validates expiration
@@ -42,7 +44,9 @@ function App() {
           path="/admin"
           element={
             <RequireAuth>
-              <AdminPanel />
+              <AdminLayout>
+                <AdminPanel />
+              </AdminLayout>
             </RequireAuth>
           }
         />
@@ -50,7 +54,9 @@ function App() {
           path="/dashboard"
           element={
             <RequireAuth>
-              <AdminDashboard />
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
             </RequireAuth>
           }
         />
@@ -58,15 +64,9 @@ function App() {
           path="/apps"
           element={
             <RequireAuth>
-              <AppsPage />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/pages"
-          element={
-            <RequireAuth>
-              <PagesPage />
+              <AdminLayout>
+                <AppsPage />
+              </AdminLayout>
             </RequireAuth>
           }
         />
@@ -74,7 +74,9 @@ function App() {
           path="/components"
           element={
             <RequireAuth>
-              <ComponentsPage />
+              <AdminLayout>
+                <ComponentsPage />
+              </AdminLayout>
             </RequireAuth>
           }
         />
@@ -82,10 +84,64 @@ function App() {
           path="/utilities"
           element={
             <RequireAuth>
-              <UtilitiesPage />
+              <AdminLayout>
+                <UtilitiesPage />
+              </AdminLayout>
             </RequireAuth>
           }
         />
+        {/* Nested routes for mega menu items */}
+        <Route
+          path="/features/:category/:item"
+          element={
+            <RequireAuth>
+              <AdminLayout>
+                <AdminFeaturePage />
+              </AdminLayout>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/ai-intelligence/:category/:item"
+          element={
+            <RequireAuth>
+              <AdminLayout>
+                <AdminFeaturePage />
+              </AdminLayout>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/data-analytics/:category/:item"
+          element={
+            <RequireAuth>
+              <AdminLayout>
+                <AdminFeaturePage />
+              </AdminLayout>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/education/:category/:item"
+          element={
+            <RequireAuth>
+              <AdminLayout>
+                <AdminFeaturePage />
+              </AdminLayout>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/helpdesk/:category/:item"
+          element={
+            <RequireAuth>
+              <AdminLayout>
+                <AdminFeaturePage />
+              </AdminLayout>
+            </RequireAuth>
+          }
+        />
+        <Route path="/page/:slug" element={<GenericPage />} />
       </Routes>
     </BrowserRouter>
   );

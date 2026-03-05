@@ -1,11 +1,9 @@
 import React from 'react';
-import AdminNavbar from '../components/AdminNavbar';
 
 export default function UtilitiesPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <AdminNavbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-semibold">Utilities</h1>
           <p className="text-sm text-gray-500">Tools and utilities for your workflow.</p>
@@ -29,7 +27,7 @@ export default function UtilitiesPage() {
             </div>
           ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 }
