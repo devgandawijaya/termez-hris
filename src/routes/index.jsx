@@ -3,8 +3,7 @@
  * All application routes - DO NOT change URLs or behavior
  */
 
-import { Navigate } from 'react-router-dom';
-import authService from '../services/authService';
+import { Suspense } from 'react';
 import AdminLayout from '../layouts/AdminLayout';
 import Login from '../modules/main/views/Login';
 import AdminPanel from '../modules/admin/views/AdminPanel';
@@ -14,35 +13,9 @@ import ComponentsPage from '../modules/admin/views/ComponentsPage';
 import UtilitiesPage from '../modules/admin/views/UtilitiesPage';
 import GenericPage from '../modules/main/views/GenericPage';
 import AdminFeaturePage from '../modules/admin/views/AdminFeaturePage';
-
-/**
- * Protected Route Wrapper
- * Checks for valid token in sessionStorage
- */
-function RequireAuth({ children }) {
-  let token = null;
-  try {
-    token = sessionStorage.getItem('token');
-  } catch (e) {
-    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV) {
-      console.debug(e);
-    }
-  }
-
-  // Check if token exists and is not expired
-  if (!token || authService.isTokenExpired(token)) {
-    // Clear session on expiration
-    try {
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('user');
-    } catch {
-      // Ignore errors
-    }
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-}
+import { EmployeeDatabasePage, EmployeeDetailPage } from './hrisRoutes';
+import LoadingFallback from './loadingFallback';
+import RequireAuth from './requireAuth';
 
 /**
  * Route definitions
@@ -157,6 +130,44 @@ export const routes = [
   {
     path: '/page/:slug',
     element: <GenericPage />,
+  },
+  // HRIS Routes
+  {
+    path: '/employees',
+    element: (
+      <RequireAuth>
+        <AdminLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <EmployeeDatabasePage />
+          </Suspense>
+        </AdminLayout>
+      </RequireAuth>
+    ),
+  },
+  {
+    path: '/employee/:id',
+    element: (
+      <RequireAuth>
+        <AdminLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <EmployeeDetailPage />
+          </Suspense>
+        </AdminLayout>
+      </RequireAuth>
+    ),
+  },
+  // Nested route for HR menu item - Employee Database
+  {
+    path: '/features/core-hr-data-administrasi/employee-database-master-data-karyawan',
+    element: (
+      <RequireAuth>
+        <AdminLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <EmployeeDatabasePage />
+          </Suspense>
+        </AdminLayout>
+      </RequireAuth>
+    ),
   },
 ];
 
