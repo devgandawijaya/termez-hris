@@ -8,6 +8,7 @@ import { lazy } from 'react';
 // Lazy load HRIS pages
 const EmployeeDatabasePage = lazy(() => import('../modules/hris/views/EmployeeDatabasePage'));
 const EmployeeDetailPage = lazy(() => import('../modules/hris/views/EmployeeDetailPage'));
+const CreateEmployeePage = lazy(() => import('../modules/employee/pages/CreateEmployeePage'));
 
-export { EmployeeDatabasePage, EmployeeDetailPage };
+export { EmployeeDatabasePage, EmployeeDetailPage, CreateEmployeePage };
 

@@ -13,7 +13,7 @@ import ComponentsPage from '../modules/admin/views/ComponentsPage';
 import UtilitiesPage from '../modules/admin/views/UtilitiesPage';
 import GenericPage from '../modules/main/views/GenericPage';
 import AdminFeaturePage from '../modules/admin/views/AdminFeaturePage';
-import { EmployeeDatabasePage, EmployeeDetailPage } from './hrisRoutes';
+import { EmployeeDatabasePage, EmployeeDetailPage, CreateEmployeePage } from './hrisRoutes';
 import LoadingFallback from './loadingFallback';
 import RequireAuth from './requireAuth';
 
@@ -144,13 +144,27 @@ export const routes = [
       </RequireAuth>
     ),
   },
+  // Nested route for HR menu item - Employee Database
   {
-    path: '/employee/:id',
+    path: '/employees/:id',
     element: (
       <RequireAuth>
         <AdminLayout>
           <Suspense fallback={<LoadingFallback />}>
             <EmployeeDetailPage />
+          </Suspense>
+        </AdminLayout>
+      </RequireAuth>
+    ),
+  },
+  // Create Employee Route
+  {
+    path: '/employees/create',
+    element: (
+      <RequireAuth>
+        <AdminLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <CreateEmployeePage />
           </Suspense>
         </AdminLayout>
       </RequireAuth>

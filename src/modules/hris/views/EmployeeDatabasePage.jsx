@@ -37,7 +37,7 @@ export default function EmployeeDatabasePage() {
 
   // Handle row click - navigate to detail page
   const handleRowClick = (employee) => {
-    navigate(`/employee/${employee.id}`);
+    navigate(`/employees/${employee.id}`);
   };
 
   // Format currency
@@ -63,7 +63,10 @@ export default function EmployeeDatabasePage() {
             >
               Refresh Data
             </button>
-            <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm">
+            <button 
+              onClick={() => navigate('/employees/create')}
+              className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm"
+            >
               + Add Employee
             </button>
           </div>
