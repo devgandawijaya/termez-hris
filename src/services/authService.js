@@ -1,14 +1,10 @@
 import axios from 'axios';
+import apiConfig from '../core/config/apiConfig';
 
-const API_BASE = 'http://localhost:1992';
+// Create axios instance with centralized config
+const client = axios.create(apiConfig);
 
-const client = axios.create({
-  baseURL: API_BASE,
-  headers: { 'Content-Type': 'application/json' },
-  timeout: 5000,
-});
-
-// include token from sessionStorage in every request if present
+// Include token from sessionStorage in every request if present
 client.interceptors.request.use((cfg) => {
   try {
     const tok = sessionStorage.getItem('token');
@@ -16,10 +12,21 @@ client.interceptors.request.use((cfg) => {
       cfg.headers = cfg.headers || {};
       cfg.headers.Authorization = `Bearer ${tok}`;
     }
-  } catch {}
+  } catch {
+    // Ignore errors reading sessionStorage
+  }
   return cfg;
 });
 
+/**
+ * Auth Service - API calls for authentication
+ */
+
+/**
+ * Login user with username and password
+ * @param {Object} credentials - { username, password }
+ * @returns {Promise} API response
+ */
 export async function login({ username, password }) {
   try {
     const resp = await client.post('/employee_logins/login', { username, password });
@@ -30,7 +37,11 @@ export async function login({ username, password }) {
   }
 }
 
-// send the token to server logout endpoint and return response
+/**
+ * Register new user
+ * @param {Object} userData - { nik, full_name, username, password }
+ * @returns {Promise} API response
+ */
 export async function register({ nik, full_name, username, password }) {
   try {
     const resp = await client.post('/employee_logins/register', { nik, full_name, username, password });
@@ -41,10 +52,13 @@ export async function register({ nik, full_name, username, password }) {
   }
 }
 
-// send the token to server logout endpoint and return response
+/**
+ * Logout user
+ * @param {string} token - User token
+ * @returns {Promise} API response
+ */
 export async function logout(token) {
   try {
-    // use a fresh client since token may not be in headers
     const resp = await client.post('/employee_logins/logout', { token });
     return resp.data;
   } catch (err) {
@@ -53,7 +67,11 @@ export async function logout(token) {
   }
 }
 
-// Decode JWT token to check expiration (client-side validation)
+/**
+ * Decode JWT token to check expiration (client-side validation)
+ * @param {string} token - JWT token
+ * @returns {boolean} True if token is expired
+ */
 export function isTokenExpired(token) {
   if (!token) return true;
   try {
@@ -67,7 +85,10 @@ export function isTokenExpired(token) {
   }
 }
 
-// Get stored token and user data
+/**
+ * Get stored token and user data from sessionStorage
+ * @returns {Object} { token, user, isExpired }
+ */
 export function getAuthData() {
   try {
     const token = sessionStorage.getItem('token');
@@ -82,4 +103,11 @@ export function getAuthData() {
   }
 }
 
-export default { login, register, logout, isTokenExpired, getAuthData };
+export default {
+  login,
+  register,
+  logout,
+  isTokenExpired,
+  getAuthData,
+};
+
