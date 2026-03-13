@@ -27,6 +27,11 @@ const OrganizationStructurePage = lazy(() =>
   import('../modules/core-hr-data-administrasi/views/OrganizationStructurePage')
 );
 
+// Lazy load job position & grade management analytics
+const JobPositionGradeManagementPage = lazy(() =>
+  import('../modules/admin/views/JobPositionGradeManagementPage')
+);
+
 /**
  * Route definitions
  * All URLs must remain unchanged
@@ -214,6 +219,19 @@ export const routes = [
         <AdminLayout>
           <Suspense fallback={<LoadingFallback />}>
             <OrganizationStructurePage />
+          </Suspense>
+        </AdminLayout>
+      </RequireAuth>
+    ),
+  },
+  // Job position & grade management analytics
+  {
+    path: '/features/core-hr-data-administrasi/job-position-grade-management',
+    element: (
+      <RequireAuth>
+        <AdminLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <JobPositionGradeManagementPage />
           </Suspense>
         </AdminLayout>
       </RequireAuth>
