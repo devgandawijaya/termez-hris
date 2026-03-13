@@ -22,6 +22,11 @@ const DigitalEmployeeFileKontrakDokumenPage = lazy(() =>
   import('../modules/digital-employee-file/views/DigitalEmployeeFileKontrakDokumenPage')
 );
 
+// Lazy load organization structure page
+const OrganizationStructurePage = lazy(() => 
+  import('../modules/core-hr-data-administrasi/views/OrganizationStructurePage')
+);
+
 /**
  * Route definitions
  * All URLs must remain unchanged
@@ -196,6 +201,19 @@ export const routes = [
         <AdminLayout>
           <Suspense fallback={<LoadingFallback />}>
             <DigitalEmployeeFileKontrakDokumenPage />
+          </Suspense>
+        </AdminLayout>
+      </RequireAuth>
+    ),
+  },
+  // Nested route for Organization Structure
+  {
+    path: '/features/core-hr-data-administrasi/organization-structure',
+    element: (
+      <RequireAuth>
+        <AdminLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <OrganizationStructurePage />
           </Suspense>
         </AdminLayout>
       </RequireAuth>
