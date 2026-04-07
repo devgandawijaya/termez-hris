@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
+
+import LoadingFallback from '../../../routes/loadingFallback';
+
+const EmployeeSelfServicePage = lazy(() => import('../../employee-self-service/views/EmployeeSelfServicePage'));
 
 export default function AdminFeaturePage() {
   const { category, item } = useParams();
+
+  const isEmployeeSelfServicePage = category === 'core-hr-data-administrasi' && item === 'employee-self-service-ess';
+
+  if (isEmployeeSelfServicePage) {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <EmployeeSelfServicePage />
+      </Suspense>
+    );
+  }
   
   // Convert slugs to readable titles
   const categoryTitle = category
