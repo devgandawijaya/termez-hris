@@ -31,8 +31,7 @@ const EmployeeForm = ({ existingEmployees = [], onSuccess, onCancel }) => {
     nikChecking,
     nikExists,
     handleFieldChange,
-    handleSave,
-    resetForm
+    handleSave
   } = useEmployeeForm(existingEmployees);
 
   // Handle submit

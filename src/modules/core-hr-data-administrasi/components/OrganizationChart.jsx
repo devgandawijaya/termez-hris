@@ -119,7 +119,7 @@ export default function OrganizationChart({
               <div
                 className="flex gap-4 mt-1 justify-center flex-wrap"
               >
-                {children.map((child, index) => (
+                {children.map((child) => (
                   <div
                     key={child.id}
                     className="relative flex flex-col items-center group"

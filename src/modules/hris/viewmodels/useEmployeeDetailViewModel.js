@@ -78,7 +78,7 @@ export function useEmployeeDetailViewModel() {
       setEmployee(JSON.parse(JSON.stringify(originalEmployee)));
       setErrors({});
     }
-    setEditMode(prev => !editMode);
+    setEditMode((current) => !current);
   }, [editMode, originalEmployee]);
 
   // Handle field change
@@ -90,8 +90,8 @@ export function useEmployeeDetailViewModel() {
     
     // Clear error for this field
     if (errors[field]) {
-      setErrors(current => {
-        const newErrors = { ...current };
+      setErrors(previousErrors => {
+        const newErrors = { ...previousErrors };
         delete newErrors[field];
         return newErrors;
       });

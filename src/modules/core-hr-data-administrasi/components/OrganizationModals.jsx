@@ -3,7 +3,7 @@
  * Modals for creating, editing, and deleting organization units
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, AlertTriangle } from 'lucide-react';
 import { OrganizationType } from '../services/organizationService';
@@ -43,9 +43,8 @@ export function OrganizationFormModal({
   isLoading = false,
   title = 'Create Organization Unit',
   parentOrganization = null,
-  allOrganizations = [],
 }) {
-  const [formData, setFormData] = useState({
+  const buildDefaultFormData = () => ({
     name: '',
     type: OrganizationType.DEPARTMENT,
     parent_id: null,
@@ -55,43 +54,15 @@ export function OrganizationFormModal({
     employee_count: 0,
   });
 
-  const [errors, setErrors] = useState({});
+  const initialFormState = initialData
+    ? { ...buildDefaultFormData(), ...initialData }
+    : parentOrganization
+      ? { ...buildDefaultFormData(), parent_id: parentOrganization.id }
+      : buildDefaultFormData();
 
-  // Initialize form with initial data
-  useEffect(() => {
-    const newFormData = { ...formData };
-    let hasChanges = false;
-    
-    if (initialData) {
-      Object.keys(initialData).forEach(key => {
-        if (formData[key] !== initialData[key]) {
-          newFormData[key] = initialData[key];
-          hasChanges = true;
-        }
-      });
-    } else if (parentOrganization && formData.parent_id !== parentOrganization.id) {
-      newFormData.parent_id = parentOrganization.id;
-      hasChanges = true;
-    } else if (!parentOrganization && !initialData) {
-      if (formData.name !== '' || formData.parent_id !== null) {
-        Object.assign(newFormData, {
-          name: '',
-          type: OrganizationType.DEPARTMENT,
-          parent_id: null,
-          description: '',
-          location: '',
-          manager_id: '',
-          employee_count: 0,
-        });
-        hasChanges = true;
-      }
-    }
-    
-    if (hasChanges) {
-      setFormData(newFormData);
-    }
-    setErrors({});
-  }, [initialData, parentOrganization, isOpen]);
+  const [formData, setFormData] = useState(initialFormState);
+
+  const [errors, setErrors] = useState({});
 
   /**
    * Handle form input change

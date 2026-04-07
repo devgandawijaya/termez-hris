@@ -424,6 +424,7 @@ export default function OrganizationStructurePage() {
 
       {/* Modals */}
       <OrganizationFormModal
+        key={`create-${showCreateModal ? editingOrg?.id || editingOrg?.parent_id || 'root' : 'closed'}`}
         isOpen={showCreateModal}
         onClose={closeCreateModal}
         onSubmit={handleCreate}
@@ -439,6 +440,7 @@ export default function OrganizationStructurePage() {
       />
 
       <OrganizationFormModal
+        key={`edit-${showEditModal ? editingOrg?.id || 'none' : 'closed'}`}
         isOpen={showEditModal}
         onClose={closeEditModal}
         onSubmit={handleUpdate}

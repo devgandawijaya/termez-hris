@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Check, X } from 'lucide-react';
-import { ESSSectionCard, ESSStatusBadge, formatDateTime } from './ESSShared';
+import { ESSSectionCard, ESSStatusBadge } from './ESSShared';
+import { formatDateTime } from './ESSSharedUtils';
 
 export default function ESSApprovalSection({ approvals, actionLoading, onProcessApproval }) {
   const [notes, setNotes] = useState({});

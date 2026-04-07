@@ -319,7 +319,7 @@ export async function getOrganizationHierarchy() {
 export async function createOrganization(orgData) {
   try {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    const store = initializeStore();
+    initializeStore();
     
     // Validate required fields
     if (!orgData.name || !orgData.type) {

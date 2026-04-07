@@ -14,7 +14,7 @@ import { validateEmployee, validateBatchImport } from '../utils/validation';
 export const useEmployee = () => {
   // Data state
   const [employees, setEmployees] = useState([]);
-  const [currentEmployee, setCurrentEmployee] = useState(null);
+  const [currentEmployee] = useState(null);
   const [stats, setStats] = useState(null);
   const [filterOptions, setFilterOptions] = useState({
     departments: [],
@@ -26,7 +26,7 @@ export const useEmployee = () => {
   // Loading states
   const [loading, setLoading] = useState(false);
   const [loadingStats, setLoadingStats] = useState(false);
-  const [saving, setSaving] = useState(false);
+  const [saving] = useState(false);
   
   // Error state
   const [error, setError] = useState(null);
@@ -114,7 +114,7 @@ export const useEmployee = () => {
     loadFilterOptions();
     loadEmployees();
     loadStats();
-  }, []);
+  }, [loadEmployees, loadFilterOptions, loadStats]);
 
   // Reload when filters change
   useEffect(() => {
@@ -123,7 +123,7 @@ export const useEmployee = () => {
     }, 300);
     
     return () => clearTimeout(timer);
-  }, [searchQuery, filters, sortConfig, pagination.page]);
+  }, [searchQuery, filters, sortConfig, pagination.page, loadEmployees]);
 
   // Handlers
   const handleSearch = useCallback((value) => {
@@ -225,6 +225,22 @@ export const useEmployeeForm = (existingEmployees = []) => {
   const [nikChecking, setNikChecking] = useState(false);
   const [nikExists, setNikExists] = useState(false);
 
+  // Check NIK exists
+  const checkNIK = useCallback(async (nik) => {
+    setNikChecking(true);
+    try {
+      const exists = await employeeService.checkNIKExists(nik);
+      setNikExists(exists);
+      if (exists) {
+        setErrors(prev => ({ ...prev, nik: 'NIK already exists in database' }));
+      }
+    } catch (err) {
+      console.error('Error checking NIK:', err);
+    } finally {
+      setNikChecking(false);
+    }
+  }, []);
+
   // Handle field change
   const handleFieldChange = useCallback((field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -242,23 +258,7 @@ export const useEmployeeForm = (existingEmployees = []) => {
     if (field === 'nik' && value) {
       checkNIK(value);
     }
-  }, [errors]);
-
-  // Check NIK exists
-  const checkNIK = useCallback(async (nik) => {
-    setNikChecking(true);
-    try {
-      const exists = await employeeService.checkNIKExists(nik);
-      setNikExists(exists);
-      if (exists) {
-        setErrors(prev => ({ ...prev, nik: 'NIK already exists in database' }));
-      }
-    } catch (err) {
-      console.error('Error checking NIK:', err);
-    } finally {
-      setNikChecking(false);
-    }
-  }, []);
+  }, [checkNIK, errors]);
 
   // Validate form
   const validateForm = useCallback(() => {

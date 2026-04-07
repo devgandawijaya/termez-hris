@@ -85,7 +85,6 @@ export default function OrganizationNode({
   onDelete = () => {},
   onAddChild = () => {},
   onViewDetail = () => {},
-  level = 0,
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -321,8 +320,6 @@ export function OrganizationNodeCompact({
   isExpanded = false,
   hasChildren = false,
   onToggleExpand = () => {},
-  _onEdit = () => {},
-  _level = 0,
 }) {
   const config = useMemo(() => typeConfig[org.type] || typeConfig.team, [org.type]);
 

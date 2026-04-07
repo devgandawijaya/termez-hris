@@ -1,6 +1,7 @@
 import React from 'react';
 import { Download, WalletCards } from 'lucide-react';
-import { ESSSectionCard, formatCurrency, formatDateTime } from './ESSShared';
+import { ESSSectionCard } from './ESSShared';
+import { formatCurrency, formatDateTime } from './ESSSharedUtils';
 
 export default function ESSPayrollSection({ payrolls, actionLoading, onDownloadPayroll }) {
   const latestPayroll = payrolls[0];
