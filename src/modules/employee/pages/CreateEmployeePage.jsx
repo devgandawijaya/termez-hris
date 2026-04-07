@@ -71,6 +71,19 @@ const assetFields = [
   { key: 'condition', label: 'Condition', type: 'select', options: ['New', 'Good', 'Fair', 'Poor'] }
 ];
 
+function ErrorMessage({ error }) {
+  if (!error) {
+    return null;
+  }
+
+  return (
+    <p className="mt-1 text-xs text-red-600 flex items-center">
+      <AlertCircle className="w-3 h-3 mr-1" />
+      {error}
+    </p>
+  );
+}
+
 export default function CreateEmployeePage() {
   const navigate = useNavigate();
   const [existingEmployees, setExistingEmployees] = useState([]);
@@ -85,16 +98,11 @@ export default function CreateEmployeePage() {
     nikExists,
     saveSuccess,
     handleFieldChange,
-    handleNestedFieldChange,
-    handleArrayFieldChange,
-    handleAddArrayItem,
-    handleRemoveArrayItem,
     handleDocumentUpload,
     handleDocumentRemove,
     handleSave,
     handleSaveDraft,
     handleTabChange,
-    resetForm,
     setFormData
   } = useEmployeeForm(existingEmployees);
 
@@ -156,14 +164,6 @@ export default function CreateEmployeePage() {
   `;
 
   const labelClasses = "block text-xs font-medium text-gray-700 mb-1";
-
-  // Error display component
-  const ErrorMessage = ({ error }) => error ? (
-    <p className="mt-1 text-xs text-red-600 flex items-center">
-      <AlertCircle className="w-3 h-3 mr-1" />
-      {error}
-    </p>
-  ) : null;
 
   return (
     <div className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 bg-gray-50 min-h-screen">

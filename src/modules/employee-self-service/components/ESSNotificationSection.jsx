@@ -1,6 +1,7 @@
 import React from 'react';
 import { BellRing, CheckCheck } from 'lucide-react';
-import { ESSSectionCard, formatDateTime } from './ESSShared';
+import { ESSSectionCard } from './ESSShared';
+import { formatDateTime } from './ESSSharedUtils';
 
 export default function ESSNotificationSection({ notifications, actionLoading, onToggleNotification, onMarkAllRead }) {
   const unreadCount = notifications.filter((item) => !item.isRead).length;

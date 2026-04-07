@@ -112,7 +112,7 @@ export function useEmployeeDatabaseViewModel() {
   useEffect(() => {
     loadEmployees();
     loadStats();
-  }, []);
+  }, [loadEmployees, loadStats]);
 
   // Reload when filters change (debounced search)
   useEffect(() => {
@@ -121,7 +121,7 @@ export function useEmployeeDatabaseViewModel() {
     }, 300);
     
     return () => clearTimeout(timer);
-  }, [searchQuery, filters, sortConfig, pagination.page]);
+  }, [searchQuery, filters, sortConfig, pagination.page, loadEmployees]);
 
   // Handlers
   const handleSearch = useCallback((value) => {

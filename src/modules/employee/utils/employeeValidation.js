@@ -196,7 +196,7 @@ export const validateEducation = (data) => {
 /**
  * Validate Documents section
  */
-export const validateDocuments = (_data) => {
+export const validateDocuments = () => {
   const errors = {};
   
   // Documents are optional
@@ -209,7 +209,7 @@ export const validateDocuments = (_data) => {
 /**
  * Validate Career History section
  */
-export const validateCareerHistory = (_data) => {
+export const validateCareerHistory = () => {
   const errors = {};
   
   // Career history is optional
@@ -222,7 +222,7 @@ export const validateCareerHistory = (_data) => {
 /**
  * Validate Assets section
  */
-export const validateAssets = (_data) => {
+export const validateAssets = () => {
   const errors = {};
   
   // Assets are optional

@@ -54,17 +54,7 @@ const DigitalEmployeeFileKontrakDokumenPage = () => {
   const [notification, setNotification] = useState(null);
 
   // Load initial data
-  useEffect(() => {
-    loadInitialData();
-  }, []);
-
-  // Load documents when pagination/sort changes
-  useEffect(() => {
-    loadDocuments();
-  }, [pagination.page, pagination.limit, sortBy, sortOrder]);
-
-  // Load initial data
-  const loadInitialData = async () => {
+  const loadInitialData = useCallback(async () => {
     setLoading(true);
     try {
       const [docsData, employeesData, typesData] = await Promise.all([
@@ -83,10 +73,10 @@ const DigitalEmployeeFileKontrakDokumenPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   // Load documents
-  const loadDocuments = async () => {
+  const loadDocuments = useCallback(async () => {
     try {
       const result = await digitalEmployeeFileService.getDocuments({
         page: pagination.page,
@@ -96,10 +86,19 @@ const DigitalEmployeeFileKontrakDokumenPage = () => {
       });
       setDocuments(result.data);
       setPagination(prev => ({ ...prev, ...result.pagination }));
-    } catch (error) {
+    } catch {
       showNotification('error', 'Gagal memuat dokumen');
     }
-  };
+  }, [pagination.page, pagination.limit, sortBy, sortOrder]);
+
+  useEffect(() => {
+    loadInitialData();
+  }, [loadInitialData]);
+
+  // Load documents when pagination/sort changes
+  useEffect(() => {
+    loadDocuments();
+  }, [loadDocuments]);
 
   // Show notification
   const showNotification = (type, message) => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Megaphone } from 'lucide-react';
-import { ESSSectionCard, formatDateTime } from './ESSShared';
+import { ESSSectionCard } from './ESSShared';
+import { formatDateTime } from './ESSSharedUtils';
 
 export default function ESSAnnouncementSection({ announcements }) {
   const [selectedId, setSelectedId] = useState(announcements[0]?.id || '');

@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowLeft, 
@@ -46,8 +45,6 @@ import {
 } from '../../../models/employeeModel';
 
 export default function EmployeeDetailPage() {
-  const navigate = useNavigate();
-  
   const {
     employee,
     loading,

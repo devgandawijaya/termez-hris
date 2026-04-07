@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { useExcelImport } from '../hooks/useEmployee';
 
-const ExcelUpload = ({ existingEmployees = [], onSuccess }) => {
+const ExcelUpload = ({ existingEmployees = [] }) => {
   const fileInputRef = useRef(null);
   
   const {

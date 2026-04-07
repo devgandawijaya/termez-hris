@@ -4,16 +4,27 @@ import { useParams } from 'react-router-dom';
 import LoadingFallback from '../../../routes/loadingFallback';
 
 const EmployeeSelfServicePage = lazy(() => import('../../employee-self-service/views/EmployeeSelfServicePage'));
+const KPIManagementPage = lazy(() => import('./KPIManagementPage'));
 
 export default function AdminFeaturePage() {
   const { category, item } = useParams();
 
   const isEmployeeSelfServicePage = category === 'core-hr-data-administrasi' && item === 'employee-self-service-ess';
+  const isKPIManagementPage = category === 'performance-management' && item === 'kpi-management';
 
   if (isEmployeeSelfServicePage) {
     return (
       <Suspense fallback={<LoadingFallback />}>
         <EmployeeSelfServicePage />
+      </Suspense>
+    );
+  }
+
+  if (isKPIManagementPage) {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        {/* Dedicated feature pages are wired here to preserve the shared feature route structure. */}
+        <KPIManagementPage />
       </Suspense>
     );
   }

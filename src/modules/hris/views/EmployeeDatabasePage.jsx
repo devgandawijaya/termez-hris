@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import SummaryCard from '../components/SummaryCard';
 import EmployeeTable from '../components/EmployeeTable';
 import useEmployeeDatabaseViewModel from '../viewmodels/useEmployeeDatabaseViewModel';
-import { createBadge } from '../components/SummaryCard';
+import { createBadge } from '../components/SummaryCardUtils';
 
 export default function EmployeeDatabasePage() {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ export default function EmployeeDatabasePage() {
     stats,
     filterOptions,
     loading,
-    loadingStats,
     error,
     searchQuery,
     filters,
@@ -29,8 +28,6 @@ export default function EmployeeDatabasePage() {
     handleSort,
     handlePageChange,
     handleRefresh,
-    clearFilters,
-    hasActiveFilters,
     totalActiveEmployees,
     totalInactiveEmployees
   } = useEmployeeDatabaseViewModel();

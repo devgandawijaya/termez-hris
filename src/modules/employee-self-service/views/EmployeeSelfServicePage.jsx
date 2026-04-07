@@ -86,7 +86,6 @@ export default function EmployeeSelfServicePage() {
         return (
           <ESSAttendanceSection
             attendance={data.attendance}
-            attendanceState={data.attendanceState}
             actionLoading={actionLoading}
             onSubmitAttendance={submitAttendance}
           />

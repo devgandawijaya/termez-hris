@@ -4,7 +4,7 @@ import { ESSSectionCard, ESSStatusBadge } from './ESSShared';
 
 const inputClassName = 'rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100';
 
-export default function ESSAttendanceSection({ attendance, attendanceState, actionLoading, onSubmitAttendance }) {
+export default function ESSAttendanceSection({ attendance, actionLoading, onSubmitAttendance }) {
   const [range, setRange] = useState('monthly');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');

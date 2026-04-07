@@ -82,7 +82,6 @@ export default function EmployeeTable({
   onFilterChange,
   onRowClick,
   onRefresh,
-  showFilters = true
 }) {
   const [showFilterPanel, setShowFilterPanel] = useState(false);
   
@@ -119,11 +118,6 @@ export default function EmployeeTable({
     return sortConfig.sortOrder === 'asc' 
       ? <ChevronUp className="w-4 h-4 text-indigo-600" />
       : <ChevronDown className="w-4 h-4 text-indigo-600" />;
-  };
-
-  // Clear filter
-  const clearFilter = (key) => {
-    onFilterChange(key, '');
   };
 
   // Clear all filters

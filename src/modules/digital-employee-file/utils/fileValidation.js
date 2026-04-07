@@ -90,7 +90,7 @@ export const validateFileName = (fileName) => {
   }
   
   // Check for dangerous characters
-  const dangerousChars = /[<>:"|?*\\\/]/;
+  const dangerousChars = /[<>:"|?*\\/]/;
   if (dangerousChars.test(fileName)) {
     return { 
       valid: false, 
