@@ -319,7 +319,11 @@ export default function AdminNavbar() {
                         {cat.items.map((it, i) => (
                           <li key={i}>
                             <Link
-                              to={makeLink('features', cat.title, it)}
+                              to={
+                                it === 'Employment Status Tracking'
+                                  ? '/admin/employment-status-tracking'
+                                  : makeLink('features', cat.title, it)
+                              }
                               onClick={() => setFeaturesOpen(false)}
                               className="block text-sm text-gray-600 hover:text-indigo-600 hover:translate-x-1 transition-all duration-200 py-1 px-2 -mx-2 rounded-lg hover:bg-indigo-50"
                             >

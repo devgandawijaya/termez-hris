@@ -13,6 +13,8 @@ import ComponentsPage from '../modules/admin/views/ComponentsPage';
 import UtilitiesPage from '../modules/admin/views/UtilitiesPage';
 import GenericPage from '../modules/main/views/GenericPage';
 import AdminFeaturePage from '../modules/admin/views/AdminFeaturePage';
+import EmploymentStatusTrackingPage from '../modules/admin/views/EmploymentStatusTrackingPage';
+import { Navigate } from 'react-router-dom';
 import { EmployeeDatabasePage, EmployeeDetailPage, CreateEmployeePage } from './hrisRoutes';
 import LoadingFallback from './loadingFallback';
 import RequireAuth from './requireAuth';
@@ -90,6 +92,22 @@ export const routes = [
         </AdminLayout>
       </RequireAuth>
     ),
+  },
+  // Employment status tracking dedicated route
+  {
+    path: '/admin/employment-status-tracking',
+    element: (
+      <RequireAuth>
+        <AdminLayout>
+          <EmploymentStatusTrackingPage />
+        </AdminLayout>
+      </RequireAuth>
+    ),
+  },
+  // redirect legacy feature path against menu
+  {
+    path: '/features/core-hr-data-administrasi/employment-status-tracking',
+    element: <Navigate replace to="/admin/employment-status-tracking" />,
   },
   // Nested routes for mega menu items
   {
