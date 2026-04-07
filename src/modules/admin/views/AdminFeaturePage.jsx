@@ -5,12 +5,22 @@ import LoadingFallback from '../../../routes/loadingFallback';
 
 const EmployeeSelfServicePage = lazy(() => import('../../employee-self-service/views/EmployeeSelfServicePage'));
 const KPIManagementPage = lazy(() => import('./KPIManagementPage'));
+const PerformanceManagementFeaturePage = lazy(() => import('./PerformanceManagementFeaturePage'));
+
+const performanceManagementItems = new Set([
+  'okr-tracking',
+  'performance-appraisal',
+  '360-evaluation',
+  'performance-dashboard-analytics',
+  'promotion-career-path-tracking',
+]);
 
 export default function AdminFeaturePage() {
   const { category, item } = useParams();
 
   const isEmployeeSelfServicePage = category === 'core-hr-data-administrasi' && item === 'employee-self-service-ess';
   const isKPIManagementPage = category === 'performance-management' && item === 'kpi-management';
+  const isPerformanceManagementPage = category === 'performance-management' && performanceManagementItems.has(item);
 
   if (isEmployeeSelfServicePage) {
     return (
@@ -25,6 +35,14 @@ export default function AdminFeaturePage() {
       <Suspense fallback={<LoadingFallback />}>
         {/* Dedicated feature pages are wired here to preserve the shared feature route structure. */}
         <KPIManagementPage />
+      </Suspense>
+    );
+  }
+
+  if (isPerformanceManagementPage) {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <PerformanceManagementFeaturePage item={item} />
       </Suspense>
     );
   }
