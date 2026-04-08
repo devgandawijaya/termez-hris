@@ -6,6 +6,7 @@ import LoadingFallback from '../../../routes/loadingFallback';
 const EmployeeSelfServicePage = lazy(() => import('../../employee-self-service/views/EmployeeSelfServicePage'));
 const KPIManagementPage = lazy(() => import('./KPIManagementPage'));
 const PerformanceManagementFeaturePage = lazy(() => import('./PerformanceManagementFeaturePage'));
+const AttendanceManagementPage = lazy(() => import('./AttendanceManagementPage'));
 
 const performanceManagementItems = new Set([
   'okr-tracking',
@@ -21,6 +22,7 @@ export default function AdminFeaturePage() {
   const isEmployeeSelfServicePage = category === 'core-hr-data-administrasi' && item === 'employee-self-service-ess';
   const isKPIManagementPage = category === 'performance-management' && item === 'kpi-management';
   const isPerformanceManagementPage = category === 'performance-management' && performanceManagementItems.has(item);
+  const isAttendanceManagementPage = category === 'attendance-time-management' && item === 'attendance-absensi-online-offline-gps-biometric';
 
   if (isEmployeeSelfServicePage) {
     return (
@@ -43,6 +45,14 @@ export default function AdminFeaturePage() {
     return (
       <Suspense fallback={<LoadingFallback />}>
         <PerformanceManagementFeaturePage item={item} />
+      </Suspense>
+    );
+  }
+
+  if (isAttendanceManagementPage) {
+    return (
+      <Suspense fallback={<LoadingFallback />}>
+        <AttendanceManagementPage />
       </Suspense>
     );
   }
